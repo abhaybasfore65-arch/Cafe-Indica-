@@ -164,7 +164,7 @@
         </div>
     </div>
     
-    <div style="text-align: center; margin-top: 30px; font-weight: bold; color: var(--primary-green);">
+    <div style="text-align: center; margin-top: 30px; font-weight: bold; color: var(--primary-green); background: #fef9e7; padding: 10px; border-radius: 10px;">
         Extra Cheese: ₹20
     </div>
 </div>
@@ -179,7 +179,8 @@
 <script>
     const menuData = {
         tea: [
-            {n: "Milk Tea", p: 29}, {n: "Elaichi Tea", p: 29}, {n: "Black Tea", p: 19},
+            {n: "Milk Tea (Small)", p: 19}, {n: "Milk Tea (Large)", p: 29}, 
+            {n: "Elaichi Tea", p: 29}, {n: "Black Tea", p: 19},
             {n: "Lemon Tea", p: 14}, {n: "Masala Lemon Tea", p: 19}, {n: "Green Tea", p: 19}
         ],
         coffee: [
@@ -190,12 +191,14 @@
             {n: "High Protein Veg Salad", p: 59}, {n: "High Protein Chicken Salad", p: 129}
         ],
         sandwich: [
-            {n: "Veg Sandwich", p: 69}, {n: "Corn Sandwich", p: 79}, {n: "Veg Cheese Sandwich", p: 89},
-            {n: "Chicken Sandwich", p: 89}, {n: "Chicken Cheese Sandwich", p: 109}
+            {n: "Veg Sandwich", p: 69}, {n: "Corn Sandwich", p: 79}, 
+            {n: "Veg Cheese Sandwich", p: 89}, {n: "Chicken Sandwich", p: 89}, 
+            {n: "Chicken Cheese Sandwich", p: 109}
         ],
         burger: [
-            {n: "Veg Burger", p: 59}, {n: "Chicken Burger", p: 79}, {n: "Veg Cheese Burger", p: 79},
-            {n: "Chicken Cheese Burger", p: 99}, {n: "Grilled Chicken Burger", p: 99}
+            {n: "Veg Burger", p: 59}, {n: "Chicken Burger", p: 79}, 
+            {n: "Veg Cheese Burger", p: 79}, {n: "Chicken Cheese Burger", p: 99}, 
+            {n: "Grilled Chicken Burger", p: 99}
         ],
         pasta: [
             {n: "White Sause Pasta", p: 99}, {n: "Red Tomato Pasta", p: 99}, {n: "Chicken Pasta", p: 139}
@@ -205,7 +208,7 @@
         ],
         snacks: [
             {n: "French Fries (M)", p: 59}, {n: "French Fries (L)", p: 79},
-            {n: "Peri Peri Fries (M)", p: 69}, {n: "Peri Peri Fries (L)", p: 89},
+            {n: "Peri Peri French Fries (M)", p: 69}, {n: "Peri Peri French Fries (L)", p: 89},
             {n: "Fish Finger (5ps)", p: 119}, {n: "Chicken Finger (5ps)", p: 129},
             {n: "Chicken Nugget (5ps)", p: 79}, {n: "Chicken Cheese Ball", p: 79}
         ],
@@ -214,9 +217,9 @@
             {n: "Kacha Mango Mojito", p: 69}, {n: "Green Apple", p: 69}
         ],
         combo: [
-            {n: "Combo 1 (Fries+Burger+Drink)", p: 149},
-            {n: "Combo 2 (Fries+Veg Burger+Sandwich)", p: 167},
-            {n: "Combo 3 (2 Chk Sandwich + 5 Fish Finger)", p: 269}
+            {n: "Combo: Fries(M)+Chicken Burger+Drink", p: 149},
+            {n: "Combo: Fries(M)+Veg Burger+Veg Sandwich", p: 167},
+            {n: "Combo: (2)Chicken Sandwich+Fish Finger(5ps)", p: 269}
         ]
     };
 
@@ -226,6 +229,7 @@
         for (let cat in menuData) {
             const container = document.getElementById(`${cat}-items`);
             menuData[cat].forEach(item => {
+                const safeId = item.n.replace(/[^a-zA-Z0-9]/g, '');
                 const div = document.createElement('div');
                 div.className = 'menu-item';
                 div.innerHTML = `
@@ -234,9 +238,9 @@
                         <span class="item-price">₹${item.p}</span>
                     </div>
                     <div class="controls">
-                        <button class="btn-qty" onclick="updateQty('${item.n}', ${item.p}, -1)">-</button>
-                        <span class="qty-val" id="qty-${item.n.replace(/\s+/g, '')}">0</span>
-                        <button class="btn-qty" onclick="updateQty('${item.n}', ${item.p}, 1)">+</button>
+                        <button class="btn-qty" onclick="updateQty('${item.n}', ${item.p}, -1, '${safeId}')">-</button>
+                        <span class="qty-val" id="qty-${safeId}">0</span>
+                        <button class="btn-qty" onclick="updateQty('${item.n}', ${item.p}, 1, '${safeId}')">+</button>
                     </div>
                 `;
                 container.appendChild(div);
@@ -244,12 +248,12 @@
         }
     }
 
-    function updateQty(name, price, change) {
+    function updateQty(name, price, change, id) {
         if (!cart[name]) cart[name] = { qty: 0, price: price };
         cart[name].qty += change;
         if (cart[name].qty < 0) cart[name].qty = 0;
         
-        document.getElementById(`qty-${name.replace(/\s+/g, '')}`).innerText = cart[name].qty;
+        document.getElementById(`qty-${id}`).innerText = cart[name].qty;
         updateCartBar();
     }
 
