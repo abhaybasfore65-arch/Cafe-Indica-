@@ -133,5 +133,62 @@
             <h2>Tea</h2>
             <div id="tea-items"></div>
 
-            <h2>Coffee
-                
+            <h2>Coffee</h2>
+            <div id="coffee-items"></div>
+
+            <h2>Salad</h2>
+            <div id="salad-items"></div>
+
+            <h2>Sandwich</h2>
+            <div id="sandwich-items"></div>
+            
+            <h2>Pasta</h2>
+            <div id="pasta-items"></div>
+        </div>
+
+        <div class="column">
+            <h2>Burger</h2>
+            <div id="burger-items"></div>
+
+            <h2>Maggie</h2>
+            <div id="maggie-items"></div>
+
+            <h2>Snacks</h2>
+            <div id="snacks-items"></div>
+
+            <h2>Beverages</h2>
+            <div id="beverage-items"></div>
+
+            <h2>Combos</h2>
+            <div id="combo-items"></div>
+        </div>
+    </div>
+    
+    <div style="text-align: center; margin-top: 30px; font-weight: bold; color: var(--primary-green); background: #fef9e7; padding: 10px; border-radius: 10px;">
+        Extra Cheese: ₹20
+    </div>
+</div>
+
+<div class="cart-bar" id="cart-bar">
+    <div>
+        <span id="total-qty">0</span> Items | <span id="total-amt">₹0</span>
+    </div>
+    <button class="order-btn" onclick="sendToWhatsApp()">Order on WhatsApp &rarr;</button>
+</div>
+
+<script>
+    const menuData = {
+        tea: [
+            {n: "Milk Tea (Small)", p: 19}, {n: "Milk Tea (Large)", p: 29}, 
+            {n: "Elaichi Tea", p: 29}, {n: "Black Tea", p: 19},
+            {n: "Lemon Tea", p: 14}, {n: "Masala Lemon Tea", p: 19}, {n: "Green Tea", p: 19}
+        ],
+        coffee: [
+            {n: "Hot Coffee", p: 39}, {n: "Black Coffee", p: 29}, {n: "Cold Coffee", p: 69}
+        ],
+        salad: [
+            {n: "High Protein Veg Salad", p: 65} // Price updated to 65
+        ],
+        sandwich: [
+            {n: "Veg Sandwich", p: 4
+             
