@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cafe Indica - Complete Menu</title>
+    <style>
+        :root {
+            --primary-green: #1a3c1a;
+            --bg-light: #fdfdfd;
+            --accent-gold: #c5a059;
+        }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 10px;
+            color: #333;
+        }
+
+        .main-container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        /* Top Header */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--primary-green);
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        .brand h1 {
+            color: var(--primary-green);
+            margin: 0;
+            font-size: 35px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .order-btn {
+            background: var(--primary-green);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        /* Menu Grid */
+        .menu-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+
+        .category h2 {
+            color: var(--primary-green);
+            font-size: 22px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 5px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .menu-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 16px;
+        }
+
+        .item-name { font-weight: 500; }
+        .item-price { font-weight: bold; color: #444; }
+
+        .combo-box {
+            background: #f9fdf9;
+            border: 1px dashed var(--primary-green);
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 10px;
+        }
+
+        .extra-cheese {
+            text-align: center;
+            font-weight: bold;
+            color: var(--primary-green);
+            margin-top: 20px;
+            padding: 10px;
+            background: #eef5ee;
+            border-radius: 5px;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 700px) {
+            .menu-grid { grid-template-columns: 1fr; }
+            .header { flex-direction: column; text-align: center; gap: 15px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="main-container">
+    <header class="header">
+        <div class="brand">
+            <h1>Cafe Indica</h1>
+            <p style="margin:0; color:#666;">Deliciously Yours</p>
+        </div>
+        <a href="#" class="order-btn">Order on WhatsApp &rarr;</a>
+    </header>
+
+    <div class="menu-grid">
+        <div class="column">
+            <div class="category">
+                <h2>TEA ☕</h2>
+                <div class="menu-item"><span class="item-name">Milk Tea</span><span class="item-price">₹19/29</span></div>
+                <div class="menu-item"><span class="item-name">Elaichi Tea</span><span class="item-price">₹29</span></div>
+                <div class="menu-item"><span class="item-name">Black Tea</span><span class="item-price">₹19</span></div>
+                <div class="menu-item"><span class="item-name">Lemon Tea</span><span class="item-price">₹14</span></div>
+                <div class="menu-item"><span class="item-name">Masala Lemon Tea</span><span class="item-price">₹19</span></div>
+                <div class="menu-item"><span class="item-name">Green Tea</span><span class="item-price">₹19</span></div>
+            </div>
+
+            <div class="category">
+                <h2>COFFEE ☕</h2>
+                <div class="menu-item"><span class="item-name">Milk Coffee</span><span class="item-price">₹29</span></div>
+                <div class="menu-item"><span class="item-name">Black Coffee</span><span class="item-price">₹19</span></div>
+                <div class="menu-item"><span class="item-name">Cold Coffee</span><span class="item-price">₹69</span></div>
+                <div class="menu-item"><span class="item-name">Vanilla Hot Coffee</span><span class="item-price">₹49</span></div>
+                <div class="menu-item"><span class="item-name">Chocolate Hot Coffee</span><span class="item-price">₹49</span></div>
+            </div>
+
+            <div class="category">
+                <h2>BURGER 🍔</h2>
+                <div class="menu-item"><span class="item-name">Veg Burger</span><span class="item-price">₹59</span></div>
+                <div class="menu-item"><span class="item-name">Chicken Burger</span><span class="item-price">₹79</span></div>
+                <div class="menu-item"><span class="item-name">Veg Cheese Burger</span><span class="item-price">₹79</span></div>
+                <div class="menu-item"><span class="item-name">Chicken Cheese Burger</span><span class="item-price">₹99</span></div>
+                <div class="menu-item"><span class="item-name">Grilled Chicken Burger</span><span class="item-price">₹99</span></div>
+            </div>
+
+            <div class="category">
+                <h2>PASTA 🍝</h2>
+                <div class="menu-item"><span class="item-name">White Sause Pasta</span><span class="item-price">₹99</span></div>
+                <div class="menu-item"><span class="item-name">Red Tomato Pasta</span><span class="item-price">₹99</span></div>
+                <div class="menu-item"><span class="item-name">Chicken Pasta</span><span class="item-price">₹139</span></div>
+            </div>
+        </div>
+
+        <div class="column">
+            <div class="category">
+                <h2>SANDWICH 🥪</h2>
+                <div class="menu-item"><span class="item-name">Veg Sandwich</span><span class="item-price">₹69</span></div>
+                <div class="menu-item"><span class="item-name">Corn Sandwich</span><span class="item-price">₹79</span></div>
+                <div class="menu-item"><span class="item-name">Veg Cheese Sandwich</span><span class="item-price">₹89</span></div>
+                <div class="menu-item"><span class="item-name">Chicken Sandwich</span><span class="item-price">₹89</span></div>
+                <div class="menu-item"><span class="item-name">Chicken Cheese Sandwich</span><span class="item-price">₹109</span></div>
+            </div>
+
+            <div class="category">
+                <h2>SNACKS 🍟</h2>
+                <div class="menu-item"><span class="item-name">French Fries (M/L)</span><span class="item-price">₹59/79</span></div>
+                <div class="menu-item"><span class="item-name">Peri Peri French Fries</span><span class="item-price">₹69/89</span></div>
+                <div class="menu-item"><span class="item-name">Fish Finger (5ps)</span><span class="item-price">₹119</span></div>
+                <div class="menu-item"><span class="item-name">Chicken Finger (5ps)</span><span class="item-price">₹129</span></div>
+                <div class="menu-item"><span class="item-name">Chicken Nugget (5ps)</span><span class="item-price">₹79</span></div>
+                <div class="menu-item"><span class="item-name">Chicken Cheese Ball</span><span class="item-price">₹79</span></div>
+            </div>
+
+            <div class="category">
+                <h2>BEVERAGE 🍹</h2>
+                <div class="menu-item"><span class="item-name">Lime Soda</span><span class="item-price">₹79</span></div>
+                <div class="menu-item"><span class="item-name">Virgin Mojito</span><span class="item-price">₹79</span></div>
+                <div class="menu-item"><span class="item-name">Blue Lagoon</span><span class="item-price">₹69</span></div>
+                <div class="menu-item"><span class="item-name">Kacha Mango Mojito</span><span class="item-price">₹69</span></div>
+                <div class="menu-item"><span class="item-name">Green Apple</span><span class="item-price">₹69</span></div>
+            </div>
+
+            <div class="category">
+                <h2>COMBOS 🍱</h2>
+                <div class="combo-box">
+                    <div class="menu-item"><strong>Combo 1</strong><span>₹149</span></div>
+                    <small>Fries(M) + Chicken Burger + Soft Drink</small>
+                </div>
+                <div class="combo-box">
+                    <div class="menu-item"><strong>Combo 2</strong><span>₹167</span></div>
+                    <small>Fries(M) + Veg Burger + Veg Sandwich</small>
+                </div>
+                <div class="combo-box">
+                    <div class="menu-item"><strong>Combo 3</strong><span>₹269</span></div>
+                    <small>(2) Chicken Sandwich + Fish (5ps) Finger</small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="extra-cheese">🧀 Extra Cheese: ₹20</div>
+</div>
+
+</body>
+  </html>
+  
