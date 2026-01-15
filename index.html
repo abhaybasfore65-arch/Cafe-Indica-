@@ -3,38 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cafe Indica - Order Online</title>
+    <title>Cafe Indica - Order Menu</title>
     <style>
         :root {
             --primary-green: #1a3c1a;
-            --light-bg: #fdfdfd;
+            --light-bg: #f9f9f9;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f4f4f4;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: var(--light-bg);
             margin: 0;
-            padding: 10px;
-            padding-bottom: 100px; /* Cart ke liye space */
+            padding: 15px;
+            padding-bottom: 100px;
         }
 
-        .main-container {
+        .container {
             max-width: 900px;
             margin: 0 auto;
             background: white;
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
 
         header {
             text-align: center;
-            border-bottom: 2px solid var(--primary-green);
-            margin-bottom: 20px;
+            border-bottom: 3px solid var(--primary-green);
+            margin-bottom: 30px;
             padding-bottom: 10px;
         }
 
-        h1 { color: var(--primary-green); margin: 0; text-transform: uppercase; }
+        h1 { color: var(--primary-green); margin: 0; font-size: 32px; text-transform: uppercase; }
 
         .menu-grid {
             display: grid;
@@ -42,50 +42,50 @@
             gap: 30px;
         }
 
-        .category h2 {
+        h2 {
             color: var(--primary-green);
-            border-bottom: 1px solid #ddd;
-            font-size: 20px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 5px;
             margin-top: 25px;
+            font-size: 20px;
+            text-transform: uppercase;
         }
 
-        /* Item Row Styling */
         .menu-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 10px 0;
+            padding: 12px 0;
             border-bottom: 1px dotted #ccc;
         }
 
         .item-info { flex: 1; }
-        .item-name { font-weight: 500; display: block; }
+        .item-name { font-weight: 600; display: block; color: #333; }
         .item-price { color: #666; font-size: 14px; }
 
-        /* Plus Minus Controls */
         .controls {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
             background: #f0f0f0;
-            padding: 5px 10px;
-            border-radius: 20px;
+            padding: 5px 12px;
+            border-radius: 25px;
         }
 
         .btn-qty {
             background: var(--primary-green);
             color: white;
             border: none;
-            width: 25px;
-            height: 25px;
+            width: 28px;
+            height: 28px;
             border-radius: 50%;
             cursor: pointer;
+            font-size: 18px;
             font-weight: bold;
         }
 
-        .qty-val { font-weight: bold; min-width: 15px; text-align: center; }
+        .qty-val { font-weight: bold; min-width: 20px; text-align: center; }
 
-        /* Floating Cart Bar */
         .cart-bar {
             position: fixed;
             bottom: 20px;
@@ -95,22 +95,22 @@
             max-width: 500px;
             background: var(--primary-green);
             color: white;
-            padding: 15px 25px;
+            padding: 18px 25px;
             border-radius: 50px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-            display: none; /* Initially hidden */
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            display: none;
             z-index: 1000;
         }
 
-        .order-now-btn {
+        .order-btn {
             background: white;
             color: var(--primary-green);
             border: none;
-            padding: 8px 20px;
-            border-radius: 20px;
+            padding: 10px 20px;
+            border-radius: 25px;
             font-weight: bold;
             cursor: pointer;
         }
@@ -122,129 +122,170 @@
 </head>
 <body>
 
-<div class="main-container">
+<div class="container">
     <header>
         <h1>Cafe Indica</h1>
         <p>Deliciously Yours</p>
     </header>
 
-    <div class="menu-grid" id="menu-content">
+    <div class="menu-grid" id="menu-container">
         <div class="column">
-            <div class="category">
-                <h2>TEA & COFFEE</h2>
-                <div class="menu-item" data-name="Milk Tea" data-price="29">
-                    <div class="item-info">
-                        <span class="item-name">Milk Tea</span>
-                        <span class="item-price">₹29</span>
-                    </div>
-                    <div class="controls">
-                        <button class="btn-qty minus">-</button>
-                        <span class="qty-val">0</span>
-                        <button class="btn-qty plus">+</button>
-                    </div>
-                </div>
-                <div class="menu-item" data-name="Cold Coffee" data-price="69">
-                    <div class="item-info"><span class="item-name">Cold Coffee</span><span class="item-price">₹69</span></div>
-                    <div class="controls"><button class="btn-qty minus">-</button><span class="qty-val">0</span><button class="btn-qty plus">+</button></div>
-                </div>
-            </div>
+            <h2>Tea</h2>
+            <div id="tea-items"></div>
 
-            <div class="category">
-                <h2>BURGER & MAGGIE</h2>
-                <div class="menu-item" data-name="Veg Burger" data-price="59">
-                    <div class="item-info"><span class="item-name">Veg Burger</span><span class="item-price">₹59</span></div>
-                    <div class="controls"><button class="btn-qty minus">-</button><span class="qty-val">0</span><button class="btn-qty plus">+</button></div>
-                </div>
-                <div class="menu-item" data-name="Cheese Maggie" data-price="59">
-                    <div class="item-info"><span class="item-name">Cheese Maggie</span><span class="item-price">₹59</span></div>
-                    <div class="controls"><button class="btn-qty minus">-</button><span class="qty-val">0</span><button class="btn-qty plus">+</button></div>
-                </div>
-            </div>
+            <h2>Coffee</h2>
+            <div id="coffee-items"></div>
+
+            <h2>Salad</h2>
+            <div id="salad-items"></div>
+
+            <h2>Sandwich</h2>
+            <div id="sandwich-items"></div>
+            
+            <h2>Pasta</h2>
+            <div id="pasta-items"></div>
         </div>
 
         <div class="column">
-            <div class="category">
-                <h2>SNACKS & COMBOS</h2>
-                <div class="menu-item" data-name="French Fries" data-price="59">
-                    <div class="item-info"><span class="item-name">French Fries</span><span class="item-price">₹59</span></div>
-                    <div class="controls"><button class="btn-qty minus">-</button><span class="qty-val">0</span><button class="btn-qty plus">+</button></div>
-                </div>
-                <div class="menu-item" data-name="Combo 1" data-price="149">
-                    <div class="item-info"><span class="item-name">Combo 1 (Burger+Fries)</span><span class="item-price">₹149</span></div>
-                    <div class="controls"><button class="btn-qty minus">-</button><span class="qty-val">0</span><button class="btn-qty plus">+</button></div>
-                </div>
-            </div>
+            <h2>Burger</h2>
+            <div id="burger-items"></div>
+
+            <h2>Maggie</h2>
+            <div id="maggie-items"></div>
+
+            <h2>Snacks</h2>
+            <div id="snacks-items"></div>
+
+            <h2>Beverages</h2>
+            <div id="beverage-items"></div>
+
+            <h2>Combos</h2>
+            <div id="combo-items"></div>
         </div>
+    </div>
+    
+    <div style="text-align: center; margin-top: 30px; font-weight: bold; color: var(--primary-green);">
+        Extra Cheese: ₹20
     </div>
 </div>
 
-<div class="cart-bar" id="cartBar">
+<div class="cart-bar" id="cart-bar">
     <div>
-        <span id="totalItems">0</span> Items | <span id="totalPrice">₹0</span>
+        <span id="total-qty">0</span> Items | <span id="total-amt">₹0</span>
     </div>
-    <button class="order-now-btn" onclick="sendWhatsApp()">Order on WhatsApp &rarr;</button>
+    <button class="order-btn" onclick="sendToWhatsApp()">Order on WhatsApp &rarr;</button>
 </div>
 
 <script>
+    const menuData = {
+        tea: [
+            {n: "Milk Tea", p: 29}, {n: "Elaichi Tea", p: 29}, {n: "Black Tea", p: 19},
+            {n: "Lemon Tea", p: 14}, {n: "Masala Lemon Tea", p: 19}, {n: "Green Tea", p: 19}
+        ],
+        coffee: [
+            {n: "Milk Coffee", p: 29}, {n: "Black Coffee", p: 19}, {n: "Cold Coffee", p: 69},
+            {n: "Vanilla Hot Coffee", p: 49}, {n: "Chocolate Hot Coffee", p: 49}
+        ],
+        salad: [
+            {n: "High Protein Veg Salad", p: 59}, {n: "High Protein Chicken Salad", p: 129}
+        ],
+        sandwich: [
+            {n: "Veg Sandwich", p: 69}, {n: "Corn Sandwich", p: 79}, {n: "Veg Cheese Sandwich", p: 89},
+            {n: "Chicken Sandwich", p: 89}, {n: "Chicken Cheese Sandwich", p: 109}
+        ],
+        burger: [
+            {n: "Veg Burger", p: 59}, {n: "Chicken Burger", p: 79}, {n: "Veg Cheese Burger", p: 79},
+            {n: "Chicken Cheese Burger", p: 99}, {n: "Grilled Chicken Burger", p: 99}
+        ],
+        pasta: [
+            {n: "White Sause Pasta", p: 99}, {n: "Red Tomato Pasta", p: 99}, {n: "Chicken Pasta", p: 139}
+        ],
+        maggie: [
+            {n: "Veg Maggie", p: 49}, {n: "Maggie", p: 39}, {n: "Corn Maggie", p: 59}, {n: "Chicken Maggie", p: 79}
+        ],
+        snacks: [
+            {n: "French Fries (M)", p: 59}, {n: "French Fries (L)", p: 79},
+            {n: "Peri Peri Fries (M)", p: 69}, {n: "Peri Peri Fries (L)", p: 89},
+            {n: "Fish Finger (5ps)", p: 119}, {n: "Chicken Finger (5ps)", p: 129},
+            {n: "Chicken Nugget (5ps)", p: 79}, {n: "Chicken Cheese Ball", p: 79}
+        ],
+        beverage: [
+            {n: "Lime Soda", p: 79}, {n: "Virgin Mojito", p: 79}, {n: "Blue Lagoon", p: 69},
+            {n: "Kacha Mango Mojito", p: 69}, {n: "Green Apple", p: 69}
+        ],
+        combo: [
+            {n: "Combo 1 (Fries+Burger+Drink)", p: 149},
+            {n: "Combo 2 (Fries+Veg Burger+Sandwich)", p: 167},
+            {n: "Combo 3 (2 Chk Sandwich + 5 Fish Finger)", p: 269}
+        ]
+    };
+
     let cart = {};
-    const whatsappNumber = "918697781622";
 
-    document.querySelectorAll('.btn-qty').forEach(button => {
-        button.addEventListener('click', function() {
-            const itemElement = this.closest('.menu-item');
-            const name = itemElement.getAttribute('data-name');
-            const price = parseInt(itemElement.getAttribute('data-price'));
-            const qtyDisplay = itemElement.querySelector('.qty-val');
-            
-            if (!cart[name]) cart[name] = { price: price, qty: 0 };
+    function renderMenu() {
+        for (let cat in menuData) {
+            const container = document.getElementById(`${cat}-items`);
+            menuData[cat].forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'menu-item';
+                div.innerHTML = `
+                    <div class="item-info">
+                        <span class="item-name">${item.n}</span>
+                        <span class="item-price">₹${item.p}</span>
+                    </div>
+                    <div class="controls">
+                        <button class="btn-qty" onclick="updateQty('${item.n}', ${item.p}, -1)">-</button>
+                        <span class="qty-val" id="qty-${item.n.replace(/\s+/g, '')}">0</span>
+                        <button class="btn-qty" onclick="updateQty('${item.n}', ${item.p}, 1)">+</button>
+                    </div>
+                `;
+                container.appendChild(div);
+            });
+        }
+    }
 
-            if (this.classList.contains('plus')) {
-                cart[name].qty++;
-            } else if (this.classList.contains('minus') && cart[name].qty > 0) {
-                cart[name].qty--;
-            }
-
-            qtyDisplay.innerText = cart[name].qty;
-            updateCartBar();
-        });
-    });
+    function updateQty(name, price, change) {
+        if (!cart[name]) cart[name] = { qty: 0, price: price };
+        cart[name].qty += change;
+        if (cart[name].qty < 0) cart[name].qty = 0;
+        
+        document.getElementById(`qty-${name.replace(/\s+/g, '')}`).innerText = cart[name].qty;
+        updateCartBar();
+    }
 
     function updateCartBar() {
         let totalQty = 0;
-        let totalPrice = 0;
-
-        for (let key in cart) {
-            totalQty += cart[key].qty;
-            totalPrice += (cart[key].qty * cart[key].price);
+        let totalAmt = 0;
+        for (let item in cart) {
+            totalQty += cart[item].qty;
+            totalAmt += (cart[item].qty * cart[item].price);
         }
-
-        const cartBar = document.getElementById('cartBar');
+        
+        const bar = document.getElementById('cart-bar');
         if (totalQty > 0) {
-            cartBar.style.display = 'flex';
-            document.getElementById('totalItems').innerText = totalQty;
-            document.getElementById('totalPrice').innerText = '₹' + totalPrice;
+            bar.style.display = 'flex';
+            document.getElementById('total-qty').innerText = totalQty;
+            document.getElementById('total-amt').innerText = '₹' + totalAmt;
         } else {
-            cartBar.style.display = 'none';
+            bar.style.display = 'none';
         }
     }
 
-    function sendWhatsApp() {
-        let message = "Hello Cafe Indica, I want to order:\n\n";
-        let grandTotal = 0;
-
-        for (let key in cart) {
-            if (cart[key].qty > 0) {
-                let itemTotal = cart[key].qty * cart[key].price;
-                message += `✅ ${key} x ${cart[key].qty} = ₹${itemTotal}\n`;
-                grandTotal += itemTotal;
+    function sendToWhatsApp() {
+        const number = "918697781622";
+        let msg = "Hello Cafe Indica, I want to order:\n\n";
+        let total = 0;
+        for (let item in cart) {
+            if (cart[item].qty > 0) {
+                msg += `📍 ${item} x ${cart[item].qty} = ₹${cart[item].qty * cart[item].price}\n`;
+                total += cart[item].qty * cart[item].price;
             }
         }
-
-        message += `\n*Total Amount: ₹${grandTotal}*`;
-        
-        const encodedMessage = encodeURIComponent(message);
-        window.open(`https://wa.me/${whatsappNumber}?text=${encodedMessage}`, '_blank');
+        msg += `\n*Grand Total: ₹${total}*`;
+        window.open(`https://wa.me/${number}?text=${encodeURIComponent(msg)}`);
     }
+
+    renderMenu();
 </script>
 
 </body>
