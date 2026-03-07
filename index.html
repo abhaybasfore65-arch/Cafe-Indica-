@@ -3,192 +3,174 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cafe Indica - Order Menu</title>
+    <title>Cafe Indica | Order Online</title>
     <style>
         :root {
-            --primary-green: #1a3c1a;
-            --light-bg: #f9f9f9;
+            --primary-green: #2d5a27;
+            --accent-gold: #d4af37;
+            --light-bg: #f8f9fa;
+            --dark-text: #333;
         }
 
-        body {
-            font-family: 'Segoe UI', Arial, sans-serif;
-            background-color: var(--light-bg);
-            margin: 0;
-            padding: 15px;
-            padding-bottom: 100px;
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; background: var(--light-bg); color: var(--dark-text); }
+        
+        /* Header & Logo */
+        header { 
+            background: white; padding: 15px; text-align: center; 
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 100;
+        }
+        .logo-circle { width: 80px; height: 80px; border-radius: 50%; border: 2px solid var(--primary-green); margin-bottom: 5px; }
+        
+        /* Banner */
+        .hero-banner {
+            width: 100%; height: 200px; 
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://i.ibb.co/LzNfGfC/cafe-interior.jpg'); /* Replace with your uploaded cafe photo link */
+            background-size: cover; background-position: center;
+            display: flex; align-items: center; justify-content: center; color: white;
         }
 
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            background: white;
-            padding: 25px;
-            border-radius: 20px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        /* Menu Section */
+        .container { max-width: 800px; margin: 20px auto; padding: 0 15px; }
+        .menu-card { 
+            background: white; border-radius: 15px; padding: 15px; margin-bottom: 15px;
+            display: flex; justify-content: space-between; align-items: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05); transition: 0.3s;
+        }
+        .menu-card:hover { transform: translateY(-3px); }
+        .price { color: var(--primary-green); font-weight: bold; font-size: 1.2rem; }
+        .add-btn { 
+            background: var(--primary-green); color: white; border: none; 
+            padding: 8px 20px; border-radius: 8px; cursor: pointer; font-weight: bold;
         }
 
-        header {
-            text-align: center;
-            border-bottom: 3px solid var(--primary-green);
-            margin-bottom: 30px;
-            padding-bottom: 10px;
+        /* Tracking & Cart */
+        #tracking-box { 
+            display: none; background: #fff; border-top: 4px solid var(--primary-green);
+            padding: 20px; border-radius: 15px; margin-top: 20px; text-align: center;
         }
+        .progress-bar { height: 10px; background: #eee; border-radius: 5px; margin: 20px 0; overflow: hidden; }
+        .progress-fill { height: 100%; background: var(--primary-green); width: 0%; transition: 2s; }
 
-        h1 { color: var(--primary-green); margin: 0; font-size: 32px; text-transform: uppercase; }
+        /* Admin Section */
+        #admin-panel { display: none; background: #eee; padding: 20px; border-radius: 10px; margin-top: 20px; }
+        .admin-input { padding: 10px; margin: 5px; border-radius: 5px; border: 1px dashed #999; }
 
-        .menu-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-        }
-
-        h2 {
-            color: var(--primary-green);
-            border-bottom: 1px solid #eee;
-            padding-bottom: 5px;
-            margin-top: 25px;
-            font-size: 20px;
-            text-transform: uppercase;
-        }
-
-        .menu-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px 0;
-            border-bottom: 1px dotted #ccc;
-        }
-
-        .item-info { flex: 1; }
-        .item-name { font-weight: 600; display: block; color: #333; }
-        .item-price { color: #666; font-size: 14px; }
-
-        .controls {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            background: #f0f0f0;
-            padding: 5px 12px;
-            border-radius: 25px;
-        }
-
-        .btn-qty {
-            background: var(--primary-green);
-            color: white;
-            border: none;
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            cursor: pointer;
-            font-size: 18px;
-            font-weight: bold;
-        }
-
-        .qty-val { font-weight: bold; min-width: 20px; text-align: center; }
-
-        .cart-bar {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 90%;
-            max-width: 500px;
-            background: var(--primary-green);
-            color: white;
-            padding: 18px 25px;
-            border-radius: 50px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-            display: none;
-            z-index: 1000;
-        }
-
-        .order-btn {
-            background: white;
-            color: var(--primary-green);
-            border: none;
-            padding: 10px 20px;
-            border-radius: 25px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        @media (max-width: 700px) {
-            .menu-grid { grid-template-columns: 1fr; }
+        .footer-cart {
+            position: fixed; bottom: 0; left: 0; right: 0; background: var(--primary-green);
+            color: white; padding: 15px; text-align: center; cursor: pointer; font-size: 1.1rem;
         }
     </style>
 </head>
 <body>
 
+<header>
+    <img src="https://i.ibb.co/pWfSgSj/cafe-indica-logo.png" class="logo-circle" alt="Cafe Indica Logo">
+    <h2 style="margin:0; color: var(--primary-green);">CAFE INDICA</h2>
+    <p style="margin:5px 0; font-size: 0.9rem; color: #666;">Freshness in every cup</p>
+</header>
+
+<div class="hero-banner">
+    <h1>Welcome to Our Cafe</h1>
+</div>
+
 <div class="container">
-    <header>
-        <h1>Cafe Indica</h1>
-        <p>Deliciously Yours</p>
-    </header>
-
-    <div class="menu-grid" id="menu-container">
-        <div class="column">
-            <h2>Tea</h2>
-            <div id="tea-items"></div>
-
-            <h2>Coffee</h2>
-            <div id="coffee-items"></div>
-
-            <h2>Salad</h2>
-            <div id="salad-items"></div>
-
-            <h2>Sandwich</h2>
-            <div id="sandwich-items"></div>
-            
-            <h2>Pasta</h2>
-            <div id="pasta-items"></div>
+    <h3>Must Try Items</h3>
+    <div id="menu-container">
         </div>
 
-        <div class="column">
-            <h2>Burger</h2>
-            <div id="burger-items"></div>
-
-            <h2>Maggie</h2>
-            <div id="maggie-items"></div>
-
-            <h2>Snacks</h2>
-            <div id="snacks-items"></div>
-
-            <h2>Beverages</h2>
-            <div id="beverage-items"></div>
-
-            <h2>Combos</h2>
-            <div id="combo-items"></div>
-        </div>
+    <div id="tracking-box">
+        <h3>🛵 Tracking Your Order</h3>
+        <p id="track-status">Order Received...</p>
+        <div class="progress-bar"><div class="progress-fill" id="fill"></div></div>
+        <p><strong id="timer">15:00</strong> mins remaining</p>
     </div>
+
+    <button onclick="toggleAdmin()" style="margin-top: 50px; opacity: 0.3; border: none; background: none;">[Admin Mode]</button>
     
-    <div style="text-align: center; margin-top: 30px; font-weight: bold; color: var(--primary-green); background: #fef9e7; padding: 10px; border-radius: 10px;">
-        Extra Cheese: ₹20
+    <div id="admin-panel">
+        <h4>Edit Menu Item</h4>
+        <input type="text" id="edit-name" class="admin-input" placeholder="Item Name">
+        <input type="number" id="edit-price" class="admin-input" placeholder="Price">
+        <button onclick="updateMenu()" class="add-btn">Save Changes</button>
     </div>
 </div>
 
-<div class="cart-bar" id="cart-bar">
-    <div>
-        <span id="total-qty">0</span> Items | <span id="total-amt">₹0</span>
-    </div>
-    <button class="order-btn" onclick="sendToWhatsApp()">Order on WhatsApp &rarr;</button>
+<div class="footer-cart" onclick="placeOrder()">
+    View Cart & Place Order (<span id="cart-count">0</span> Items)
 </div>
 
 <script>
-    const menuData = {
-        tea: [
-            {n: "Milk Tea (Small)", p: 19}, {n: "Milk Tea (Large)", p: 29}, 
-            {n: "Elaichi Tea", p: 29}, {n: "Black Tea", p: 19},
-            {n: "Lemon Tea", p: 14}, {n: "Masala Lemon Tea", p: 19}, {n: "Green Tea", p: 19}
-        ],
-        coffee: [
-            {n: "Hot Coffee", p: 39}, {n: "Black Coffee", p: 29}, {n: "Cold Coffee", p: 69}
-        ],
-        salad: [
-            {n: "High Protein Veg Salad", p: 65} // Price updated to 65
-        ],
-        sandwich: [
-            {n: "Veg Sandwich", p: 4
-             
+    // Initial Menu Data (Aap ise change kar sakte hain)
+    let menuItems = [
+        { id: 1, name: "Cardamom Cappuccino", price: 120 },
+        { id: 2, name: "Indica Special Sandwich", price: 150 },
+        { id: 3, name: "Classic Masala Chai", price: 45 },
+        { id: 4, name: "Chocolate Hazelnut Shake", price: 180 }
+    ];
+
+    let cartCount = 0;
+
+    // Load Menu
+    function renderMenu() {
+        const container = document.getElementById('menu-container');
+        container.innerHTML = '';
+        menuItems.forEach(item => {
+            container.innerHTML += `
+                <div class="menu-card">
+                    <div>
+                        <div style="font-weight: bold; font-size: 1.1rem;">${item.name}</div>
+                        <div class="price">₹${item.price}</div>
+                    </div>
+                    <button class="add-btn" onclick="addToCart()">ADD</button>
+                </div>
+            `;
+        });
+    }
+
+    function addToCart() {
+        cartCount++;
+        document.getElementById('cart-count').innerText = cartCount;
+    }
+
+    // Order Tracking Logic
+    function placeOrder() {
+        if(cartCount === 0) return alert("Pehle item select karein!");
+        
+        document.getElementById('tracking-box').style.display = 'block';
+        window.scrollTo(0, document.body.scrollHeight);
+        
+        let stages = ["Preparing your food...", "Rider picked up order...", "Rider is nearby!", "Delivered! ✅"];
+        let progress = [30, 60, 90, 100];
+        let i = 0;
+
+        let interval = setInterval(() => {
+            document.getElementById('track-status').innerText = stages[i];
+            document.getElementById('fill').style.width = progress[i] + '%';
+            i++;
+            if(i >= stages.length) clearInterval(interval);
+        }, 4000);
+    }
+
+    // Admin Functions (To make changes)
+    function toggleAdmin() {
+        let panel = document.getElementById('admin-panel');
+        panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
+    }
+
+    function updateMenu() {
+        let newName = document.getElementById('edit-name').value;
+        let newPrice = document.getElementById('edit-price').value;
+        
+        if(newName && newPrice) {
+            menuItems[0].name = newName; // Pehla item change hoga
+            menuItems[0].price = newPrice;
+            renderMenu();
+            alert("Menu updated successfully!");
+        }
+    }
+
+    renderMenu();
+</script>
+
+</body>
+</html>
